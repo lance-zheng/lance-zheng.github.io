@@ -1,0 +1,79 @@
+<head>
+  <link rel="shortcut icon" href="/assets/image/favicon.ico" type="image/x-icon" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+</head>
+
+<style>
+  img {
+    -webkit-user-drag: none;
+  }
+  #back-to-top {
+    display: none;
+  }
+
+  .toolbar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    bottom: 20px;
+    right: 20px;
+  }
+  .toolbar > img {
+    width: 1.6rem;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+</style>
+<div>
+  <span class="toolbar">
+    <img id="back-to-top" src="top.png" alt="Top" />
+    <img id="prev-page" src="back.png" alt="Back" />
+    <img id="home" src="home.png" alt="Home" />
+    <img id="github" src="github.png" alt="GitHub" />
+  </span>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    const links = document.querySelectorAll('a[href$=".md"]');
+
+    for (let i = 0; i < links.length; i++) {
+      const link = links[i];
+      link.href = link.href.replace(/\.md$/, "");
+    }
+  });
+
+  window.addEventListener("scroll", function () {
+    const button = document.querySelector("#back-to-top");
+
+    if (window.scrollY > 0) {
+      button.style.display = "block";
+    } else {
+      button.style.display = "none";
+    }
+  });
+
+  document.querySelector("#back-to-top").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  document.querySelector("#prev-page").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.history.back();
+  });
+
+  document.querySelector("#github").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location = "https://github.com/lance-zheng/lance-zheng.github.io/tree/gh-pages";
+  });
+
+  document.querySelector("#home").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location = "https://lance-zheng.github.io";
+  });
+</script>

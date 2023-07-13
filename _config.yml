@@ -1,0 +1,10 @@
+# title: Home
+description: Lance's Blog
+
+github:
+  private: true
+
+exclude:
+  - generator
+  - bin
+  - trash
