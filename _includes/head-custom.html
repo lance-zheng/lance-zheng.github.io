@@ -1,0 +1,132 @@
+<head>
+  <link rel="shortcut icon" href="/assets/image/favicon.ico" type="image/x-icon" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+</head>
+
+<style>
+  .w100 {
+    width: 100%;
+  }
+  .markdown-body img {
+    transition: width 0.3s ease-in-out;
+    cursor: pointer;
+    -webkit-user-drag: none;
+  }
+
+  .markdown-body h1:first-of-type {
+    display: none;
+  }
+
+  #back-to-top {
+    display: none;
+  }
+
+  .toolbar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    bottom: 20px;
+    right: 20px;
+  }
+  .toolbar > img {
+    width: 1.6rem;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  .toolbar > img:hover {
+    transform: scale(1.1);
+  }
+  @media print {
+    .toolbar {
+      display: none !important;
+    }
+    /* 在打印时代码块自动换行 */
+    code {
+      word-wrap: break-word !important;
+      overflow-wrap: break-word !important;
+      white-space: pre-wrap !important;
+    }
+  }
+
+  /* https://lance-zheng.github.io/sources/lib 页面使用*/
+  .li-lib {
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+<div>
+  <span class="toolbar">
+    <img id="back-to-top" src="/assets/image/top.png" alt="Top" />
+    <img id="prev-page" src="/assets/image/back.png" alt="Back" />
+    <img id="home" src="/assets/image/home.png" alt="Home" />
+    <!-- <img id="github" src="/assets/image/github.png" alt="GitHub" /> -->
+  </span>
+</div>
+
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    // 首页标签居中
+
+    if (window.location.href === "https://lance-zheng.github.io/sources/lib") {
+      let liElements = document.querySelectorAll("li");
+      for (let i = 0; i < liElements.length; i++) {
+        liElements[i].className += "li-lib";
+      }
+    }
+
+    // 替换 md like 为 html
+    const links = document.querySelectorAll('a[href$=".md"]');
+    for (let i = 0; i < links.length; i++) {
+      const link = links[i];
+      link.href = link.href.replace(/\.md$/, "");
+    }
+    // 替换 md link 为 html
+    // 图片点击放大
+    var allImgs = document.querySelectorAll("img");
+    for (var i = 0; i < allImgs.length; i++) {
+      allImgs[i].addEventListener("click", function () {
+        if (this.classList.contains("w100")) {
+          this.classList.remove("w100");
+        } else {
+          this.classList.add("w100");
+        }
+      });
+    }
+    // 图片点击放大
+  });
+
+  window.addEventListener("scroll", function () {
+    const button = document.querySelector("#back-to-top");
+
+    if (window.scrollY > 0) {
+      button.style.display = "block";
+    } else {
+      button.style.display = "none";
+    }
+  });
+
+  document.querySelector("#back-to-top").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  document.querySelector("#prev-page").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.history.back();
+  });
+
+  // document.querySelector("#github").addEventListener("click", function (event) {
+  //   event.preventDefault();
+  //   window.location = "https://github.com/lance-zheng/lance-zheng.github.io/tree/gh-pages";
+  // });
+
+  document.querySelector("#home").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location = "https://lance-zheng.github.io";
+  });
+</script>
